@@ -1,0 +1,2 @@
+.loader{color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:48px;font-weight:700;display:inline-block;position:relative}.loader:before{content:"";width:30px;height:30px;box-sizing:border-box;border:5px solid #fff;border-bottom-color:#ff3d00;border-radius:50%;animation:rotation .6s linear infinite;position:absolute;bottom:8px;left:34px}@keyframes rotation{0%{transform:rotate(0deg)}to{transform:rotate(360deg)}}.cat-info{margin-top:30px}
+/*# sourceMappingURL=index.da73f336.css.map */
