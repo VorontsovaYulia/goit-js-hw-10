@@ -1,5 +1,6 @@
 import axios from "axios";
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 axios.defaults.headers.common["x-api-key"] = "live_wC1rU3OBc9dBRS28lJYyBBYlsXwTP7PXYISNfYf93cIrOqk41Zn0qgKVNUKn1lVp";
 
@@ -7,7 +8,9 @@ const selectEl = document.querySelector('.breed-select');
 const divInfo = document.querySelector('.cat-info');
 const pLoader = document.querySelector('.loader');
 const pError = document.querySelector('.error');
+const dodyEl = document.querySelector('body')
 
+dodyEl.style.backgroundColor = 'rgb(106, 186, 196)'
 selectEl.style.display = 'none';
 pError.style.display = 'none';
 
@@ -18,7 +21,7 @@ fetchBreeds()
         pLoader.style.display = 'none';
 
         data.map(item => {
-          
+            
             const opt = document.createElement("option");
             opt.setAttribute("value", `${item.id}`);
             opt.textContent = item.name;
@@ -27,16 +30,14 @@ fetchBreeds()
         })
     })
     .catch(err => {
-
-        pError.style.display = 'block';
-        pLoader.style.display = 'none';
-        divInfo.style.display = 'none';
+        onError();
         
     });
 
 selectEl.addEventListener('change', onSelect);
 
 function onSelect(evt) {
+    
     const catId = evt.currentTarget.value;
 
     pLoader.style.display = 'block';
@@ -68,25 +69,24 @@ function onSelect(evt) {
                 <p>${infoCat.temperament}</p>
                 `
                 divInfo.innerHTML = info;
-           
+
             })
             .catch(err => {
-
-                pError.style.display = 'block'
-                pLoader.style.display = 'none';
-                divInfo.style.display = 'none';
+                onError();
                 
             })
        
     })
     .catch(err => {
         
-        pError.style.display = 'block';
-        pLoader.style.display = 'none';
-        divInfo.style.display = 'none';
+        onError();
         
     })
 }
 
-
+function onError() {
+     Notify.failure('Oops! Something went wrong! Try reloading the page!');
+        pLoader.style.display = 'none';
+        divInfo.style.display = 'none';
+}
 
